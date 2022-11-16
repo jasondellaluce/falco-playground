@@ -23,10 +23,10 @@ const FalcoLanguageHighlight = HighlightStyle.define([
   { tag: tags.operator, color: "#f5d" }
 ]);
 
-
-function Editor() {
+function Editor({ falco }) {
   const onChange = React.useCallback((value, viewUpdate) => {
-    // console.log('value:', value);
+    let res = falco.validateRules("file1", value);
+    console.log(JSON.parse(res));
   }, []);
   return (
     <CodeMirror
