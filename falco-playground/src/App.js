@@ -1,18 +1,17 @@
 import React from 'react';
-import CodeMirror from '@uiw/react-codemirror';
-import { javascript } from '@codemirror/lang-javascript';
+import Editor from './Editor/Editor';
+import Loading from './Loading/Loading';
+import useFalco from './useFalco/useFalco';
 
-function App() {
-  const onChange = React.useCallback((value, viewUpdate) => {
-    console.log('value:', value);
-  }, []);
+function App () {
+  const [falco, loading, error] = useFalco();
+
   return (
-    <CodeMirror
-      value="console.log('hello world!');"
-      height="200px"
-      extensions={[javascript({ jsx: true })]}
-      onChange={onChange}
-    />
+    <>
+      {loading && <Loading />}
+      {!loading && error && <p>ERROR: {error.toString()}</p>}
+      {!loading && !error && falco && <Editor falco={falco}/>}
+    </>
   );
 }
 export default App;
