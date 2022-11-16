@@ -2,14 +2,16 @@
 
 @skip { space | newlineEmpty | Comment }
 
-document { DocStart newline property* DocEnd }
+document { newline Property* }
 
-property { Key value newline }
+Property { (ConditionKey ConditionValue newline) | (Key Value newline) }
 
-value { scalar | MultiLine | Mapping | Sequence }
+ConditionValue { Scalar | MultiLine }
 
-scalar { Boolean | Null | Number | String }
-String { plain | string }
+Value { Scalar | MultiLine | Mapping | Sequence }
+
+Scalar { Boolean | Null | Number | String }
+String { PlainString | QuotedString }
 
 MultiLine {
   (quote lineSkip newline multiline quote) |
@@ -20,12 +22,12 @@ MultiLine {
   multiline { indent (lineSkip newline)+ dedent }
 }
 
-Mapping { "{" commaSep<scalar>? "}" }
+Mapping { "{" commaSep<Scalar>? "}" }
 
-Sequence { "[" commaSep<scalar>? "]" }
+Sequence { "[" commaSep<Scalar>? "]" }
 
-Boolean { @specialize<plain, "true" | "false" > }
-Null { @specialize<plain, "null" | "~" > }
+Boolean { @specialize<PlainString, "true" | "false" > }
+Null { @specialize<PlainString, "null" | "~" > }
 
 @context trackIndent from "./tokens.js"
 
@@ -37,6 +39,7 @@ Null { @specialize<plain, "null" | "~" > }
   colon { ": " }
   FoldOp { $[|>] $[+\-]? }
 
+  ConditionKey { "condition" space? colon }
   Key { keyChar (std.digit | keyChar)* space? colon }
   keyChar { std.asciiLetter | "_" }
 
@@ -45,8 +48,8 @@ Null { @specialize<plain, "null" | "~" > }
   frac { "." (std.digit+ | "nan" | "inf") }
   exp { $[eE] $[+\-]? std.digit+ }
 
-  string { quote line quote }
-  plain { ![{}[\]&*#?|\-<>=!%@:" \t\f] line }
+  QuotedString { quote line quote }
+  PlainString { ![{}[\]&*#?|\-<>=!%@:" \t\f] line }
   lineSkip { (!["\n\r] | "\\" _)+ }
   line { (![#"\n\r] | "\\" _)+ }
 
@@ -56,7 +59,8 @@ Null { @specialize<plain, "null" | "~" > }
 
   "{" "}" "[" "]"
 
-  @precedence { Number, plain }
+  @precedence { ConditionKey, Key }
+  @precedence { Number, PlainString }
   @precedence { lineSkip, space }
   @precedence { lineSkip, Comment }
 }
