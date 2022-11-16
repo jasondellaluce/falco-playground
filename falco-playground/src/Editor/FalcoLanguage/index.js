@@ -24,7 +24,6 @@ const FalcoLanguageHighlight = HighlightStyle.define([
 ]);
 const FalcoLanguage = LRLanguage.define({
     parser: parser.configure({
-        strict: true,
         props: [
             styleTags({
                 Identifier: tags.variableName,
