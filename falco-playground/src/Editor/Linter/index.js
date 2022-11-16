@@ -3,39 +3,43 @@ import {linter, Diagnostic} from "@codemirror/lint"
 
 const falcoLinter = linter(view => {
   let diagnostics = [];
-//   syntaxTree(view.state).cursor().iterate(node => {
-//     if (node.name == "RegExp") diagnostics.push({
-//       from: node.from,
-//       to: node.to,
-//       severity: "warning",
-//       message: "Regular expressions are FORBIDDEN",
-//       actions: [{
-//         name: "Remove",
-//         apply(view, from, to) { view.dispatch({changes: {from, to}}) }
-//       }]
-//     })
-//   })
+  
+  // ... an offset from falco rule validation json response
+  const offset = 98;
+
+  // the end of selection
+  let end = 0;
+
   syntaxTree(view.state).cursor().iterate(node => {
-    console.log("falco linter: ", node.name, node.index);
-    if (node.name == "Program") {
+    try {
         let text = view.viewState.state.doc.text.join(' ');
-        // let text = view.viewState.state.toText();
         text = text.substring(node.from, node.to);
-        console.log("falco linter: found the condition tag !! >> ", node.name, " content: ", node, view, text);
-    }  
+        
+        if (node.from == offset) {
+            end = node.to;
+        }
+
+        console.log("falco linter: ",  node.name, 
+            node.index, node.from, node.to, 
+            " - ", offset, end,
+            text);
+        
+    } catch (e) {
+        console.log('trust me: ignore this', e);
+    }
   });
   // simulation of a problem
   diagnostics.push({
-    from: 66,
-    to: 69,
-    // severity: "warning",
-    severity: "error",
+    from: offset,
+    to: end,
+    severity: "warning",
+    // severity: "error",
     source: "Falco® Engine (WASM)",
     message: "Falco rule syntax is wrong",
-    actions: [{
-        name: "Remove",
-        apply(view, from, to) { view.dispatch({changes: {from, to}}) }
-    }]
+    // actions: [{
+    //     name: "Remove",
+    //     apply(view, from, to) { view.dispatch({changes: {from, to}}) }
+    // }]
   });
   return diagnostics;
 })
