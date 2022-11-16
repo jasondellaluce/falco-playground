@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import * as Module from './wasm.js'
-import * as AsBind from 'as-bind';
 
 function useFalco() {
   const [loading, setLoading] = useState(false);

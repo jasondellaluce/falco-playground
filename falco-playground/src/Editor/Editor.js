@@ -4,9 +4,10 @@ import { tags, styleTags } from '@lezer/highlight';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { Mixed } from "./MixedLanguage"
 import { falcoLinter, falcoLintGutter, setFalco } from './Linter';
+import { oneDark } from '@codemirror/theme-one-dark';
 import './Editor.css';
 
-const initialContnet = `####################
+const initialContent = `####################
 # Your custom rules!
 ####################
 
@@ -36,8 +37,8 @@ function Editor({ falco }) {
   }, []);
   return (
     <CodeMirror
-      value={initialContnet}
-      extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight), falcoLinter, falcoLintGutter]}
+      value={initialContent}
+      extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight), falcoLinter, falcoLintGutter, oneDark]}
       onChange={onChange}
       minHeight={"600px"}
     />

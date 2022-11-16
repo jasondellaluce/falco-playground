@@ -1,0 +1,89 @@
+.main-container {
+    background-color: #202224;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+.playground-controls {
+  align-items: initial;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-bottom: 1.5rem;
+  padding-top: 3rem;
+  display: flex;
+}
+
+.playground-title {
+  line-height: 1.75rem;
+  display: inline;
+  margin: 0;
+}
+
+.playground-buttons {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: flex-end;  
+}
+
+.playground-selectExample, .playground-selectGoVersion, .playground-shareURL {
+  margin: 0 0.4375rem 0 0;
+  width: auto;
+
+  background-color: var(--color-background);
+  border-radius: 3px;
+  border: 0.0625rem solid #6e7072;  
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  height: 1.75rem;
+}
+
+.Button {
+  align-items: center;
+  background-color: var(--color-background-accented);
+  border: 0.0625rem solid #6e7072;
+  border-radius: 0.1875rem;
+  box-shadow: 0 0.125rem 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font: bold 0.875rem Roboto, sans-serif;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  justify-content: center;
+  min-width: 4.063rem;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+option {
+  color: black;
+}
+
+.Button--primary {
+  border: 0.0625rem solid #00add8;
+}
+
+.text {
+  padding-top: 2rem;
+}
+
+.falchetti {
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  align-self: flex-end;
+  color: white;
+}
+
+.flogos {
+  transform: translateY(3px);
+}
+
+.f-logo {
+  width: 30px;
+  height: 30px;
+}
