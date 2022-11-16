@@ -1,0 +1,52 @@
+@top Program { expression }
+
+expression { OrExpr }
+
+OrExpr { AndExpr "or" AndExpr }
+
+AndExpr { NotExpr "or" NotExpr }
+
+NotExpr {
+  ("not" Check)
+  | Check  }
+
+Check {
+  (CheckField CheckCondition)
+  | Identifier
+  | ( "(" expression ")" )
+}
+
+CheckCondition {
+  UnaryOperator
+  | (NumOperator NumValue)
+  | (StrOperator StrValue)
+  | (ListOperator ListValue)
+}
+
+ListValue {
+  ("(" (StrValue ("," StrValue)*)* ")")
+  | Identifier }
+  
+CheckField { FieldName("[" FieldArg "]")? }
+FieldArg { QuotedStr | FieldArgBareStr }
+NumValue { HexNumber | Number }
+StrValue { QuotedStr | BareStr }
+
+@skip { space }
+
+@tokens {
+  UnaryOperator   { "exists" }
+  NumOperator     { "<=" | "<" | ">=" | ">" }
+  StrOperator     { "==" | "=" | "!=" | "glob " | "contains"
+                    | "icontains " | "startswith " | "endswith" }
+  ListOperator    { "intersects" | "in" | "pmatch" }
+  Identifier      { $[a-mo-zA-MO-Z]+ $[a-zA-Z0-9_]* space }
+  FieldName       { $[a-mo-zA-MO-Z]+ $[a-zA-Z0-9_]* ($[.] $[a-zA-Z]+ $[a-zA-Z0-9_]*)+ }
+  FieldArgBareStr { ![ \b\t\n\r\[\]"']+ }
+  HexNumber       { "0" $[xX] $[0-9a-zA-Z]+ }
+  Number          { $[+\-]? $[1-9]+ $[.]? $[0-9]* ($[eE] $[+\-] $[0-9]+)? }
+  QuotedStr       { ('"' (!["\\] | "\\" _)* '"') | ("'" (!['\\] | "\\" _)* "'") }
+  BareStr         { ![ \b\t\n\r\(\),="']+ }
+
+  space { $[ \t\n\r]+ }
+}
