@@ -1,10 +1,15 @@
 .cm-editor { 
     height: 300px; 
-    border: 1px solid #ddd;
-    background-image: url('../images/Falco.png');
+    
+    border: 1px solid rgb(71, 69, 69);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+
+    background-color: #253443;
+    background-image: url('../images/Falco-opacity-25.png');
+    background-size: contain;
     background-repeat: no-repeat;
-    /* background-color: #FFFFF3; */
-    background-position: right;
+    background-position: right; 
 }
 .cm-scroller { 
     overflow: auto; 
@@ -12,11 +17,15 @@
 
 .playground-outputContainter {
     height: 300px; 
-    border-bottom-right-radius: 0.3125rem;
-    border-bottom-left-radius: 0.3125rem;
-    border-top: none !important;
     padding: 0.625rem;
     overflow: auto;
-    background-color: #EFEEEE;
-  }
+   
+    border: 1px solid rgb(71, 69, 69);
+    border-top: none !important;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+   
+    background-color: #2b2d2f;
+}
+
   
