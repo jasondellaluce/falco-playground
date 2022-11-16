@@ -26,10 +26,26 @@
     -->
     <title>Falco playground</title>
   </head>
+
   <body>
+    <header class="Site-header">
+      <div id="header"><img class="logo" src="%PUBLIC_URL%/FalcoWhite.png" alt="falco logo in header"></div>
+    </header>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="header"><img src="%PUBLIC_URL%/falco_header.png" alt="falco logo in header"></div>
-    <div id="root"></div>
+    <main>
+      <div>
+        <div class="welcome">
+          <h1 class="welcome-title">
+            Welcome to Falco Playground!
+          </h1>
+        </div>
+        <div class ="playground" >
+          <div class ="cm" id="root"></div>
+          <div class="playground-outputContainter" id="outputContainter"></div>
+        </div>
+      </div>
+    </main>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
