@@ -2,9 +2,9 @@
 
 expression { OrExpr }
 
-OrExpr { AndExpr "or" AndExpr }
+OrExpr { AndExpr ("or" AndExpr)* }
 
-AndExpr { NotExpr "or" NotExpr }
+AndExpr { NotExpr ("and" NotExpr)* }
 
 NotExpr {
   ("not" Check)
