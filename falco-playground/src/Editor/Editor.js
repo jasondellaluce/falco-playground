@@ -3,6 +3,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { tags, styleTags } from '@lezer/highlight';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { Mixed } from "./MixedLanguage"
+import falcoLinter from './Linter';
 import './Editor.css';
 
 const initialContnet = `####################
@@ -10,12 +11,12 @@ const initialContnet = `####################
 ####################
 
 # Add new rules, like this one
- - rule: The program "sudo" is run in a container
-   desc: An event will trigger every time you run sudo in a container
-   condition: evt.type = execve and evt.dir=< and container.id != host and proc.name = sudo
-   output: "Sudo run in container (user=%user.name %container.info parent=%proc.pname cmdline=%proc.cmdline)"
-   priority: ERROR
-   tags: [users, container]
+- rule: The program "sudo" is run in a container
+  desc: An event will trigger every time you run sudo in a container
+  condition: evt.type = execve and evt.dir=< and container.id != host and proc.name = sudo
+  output: "Sudo run in container (user=%user.name %container.info parent=%proc.pname cmdline=%proc.cmdline)"
+  priority: ERROR
+  tags: [users, container]
 `;
 
 const FalcoLanguageHighlight = HighlightStyle.define([
@@ -36,7 +37,7 @@ function Editor({ falco }) {
   return (
     <CodeMirror
       value={initialContnet}
-      extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight)]}
+      extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight), falcoLinter]}
       onChange={onChange}
       minHeight={"600px"}
     />
