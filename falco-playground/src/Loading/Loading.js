@@ -2,7 +2,7 @@ import './Loading.css';
 
 function Loading() {
   return (
-    <p>Loading...</p>
+    <div className='center'>Loading... </div>
   );
 }
 export default Loading;
