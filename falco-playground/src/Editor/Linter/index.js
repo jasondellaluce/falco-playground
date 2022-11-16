@@ -16,7 +16,7 @@ const falcoLinter = linter(view => {
 //     })
 //   })
   syntaxTree(view.state).cursor().iterate(node => {
-    console.log("falco linter: ", node.name);
+    console.log("falco linter: ", node.name, node.index);
     if (node.name == "Program") {
         let text = view.viewState.state.doc.text.join(' ');
         // let text = view.viewState.state.toText();
@@ -30,7 +30,8 @@ const falcoLinter = linter(view => {
     to: 69,
     // severity: "warning",
     severity: "error",
-    message: "Falco rule syntax is wrong: \"sudo\" not allowed here",
+    source: "Falco® Engine (WASM)",
+    message: "Falco rule syntax is wrong",
     actions: [{
         name: "Remove",
         apply(view, from, to) { view.dispatch({changes: {from, to}}) }
