@@ -4,78 +4,79 @@ import falcoResponse from "./falcoResponse";
 
 const falcoLinter = linter(view => {
     let diagnostics = [];
-
     let errors = falcoResponse.errors;
     let warnings = falcoResponse.warnings;
 
     syntaxTree(view.state).cursor().iterate(node => {
         try {
-            let text = view.viewState.state.doc.text.join(' ');
-            text = text.substring(node.from, node.to);
-
             errors.forEach((item) => {
-                let locations = item.context.locations;
-                let loc = locations[locations.length-1];
-                if (loc.position.offset == node.from) {
-                    loc.position.end = node.to;
-                }
+                setEnd(item, node);
             });
 
             warnings.forEach((item) => {
-                let locations = item.context.locations;
-                let loc = locations[locations.length-1];
-                if (loc.position.offset == node.from) {
-                    loc.position.end = node.to;
-                }
+                setEnd(item, node);
             });
 
-            console.log("falco linter: ", node.name,
-                node.index, node.from, node.to, text);
+            const text = getText(view, node);
+            console.log("falco linter: ", node.index, node.from, node.to, '|', node.name, '|', text);
 
         } catch (e) {
             console.log('trust me: ignore this', e);
         }
     });
-    // simulation of a problem
 
     warnings.forEach((item) => {
-        let locations = item.context.locations;
-        let loc = locations[locations.length-1];
-        if (loc.position.offset < loc.position.end) {
-            diagnostics.push({
-                from: loc.position.offset,
-                to: loc.position.end,
-                severity: "warning",
-                source: "Falco® Engine (WASM)",
-                message: item.codedesc,
-                // actions: [{
-                //     name: "Remove",
-                //     apply(view, from, to) { view.dispatch({changes: {from, to}}) }
-                // }]
-            });
+        const d = buildDiagnostic(item, SEVERITY_WARNING);
+        if (d != null && d.from < d.to) {
+            diagnostics.push(d);
         }
     });
+
     errors.forEach((item) => {
-        let locations = item.context.locations;
-        let loc = locations[locations.length-1];
-        let from = loc.position.offset;
-        let to = from+1;
-        if (loc.position.offset < loc.position.end) {
-            to = loc.position.end; 
+        const d = buildDiagnostic(item, SEVERITY_ERORR);
+        if (d != null && d.from < d.to) {
+            diagnostics.push(d);
         }
-        diagnostics.push({
-            from: from,
-            to: to,
-            severity: "error",
-            source: "Falco® Engine (WASM)",
-            message: item.codedesc,
-            // actions: [{
-            //     name: "Remove",
-            //     apply(view, from, to) { view.dispatch({changes: {from, to}}) }
-            // }]
-        });
     });
+
     return diagnostics;
 })
+
+const getText = (view, node) => {
+    let text = view.viewState.state.doc.text.join(' ');
+    text = text.substring(node.from, node.to);
+    return text;
+}
+
+const setEnd = (item, node) => {
+    let locations = item.context.locations;
+    let loc = locations[locations.length-1];
+    if (loc.position.offset == node.from) {
+        loc.position.end = node.to;
+    }
+}
+
+const SEVERITY_WARNING = 'warning';
+const SEVERITY_ERORR = 'error';
+const buildDiagnostic = (item, severity) => {
+    let locations = item.context.locations;
+    let loc = locations[locations.length-1]; // note: get last location, it's correct ?
+    let from = loc.position.offset;
+    let to = from+1;
+    if (loc.position.offset < loc.position.end) {
+        to = loc.position.end; 
+    }
+    return {
+        from: from,
+        to: to,
+        severity: severity,
+        source: "Falco® Engine (WASM)",
+        message: item.codedesc,
+        // actions: [{
+        //     name: "Remove",
+        //     apply(view, from, to) { view.dispatch({changes: {from, to}}) }
+        // }]
+    };
+}
 
 export default falcoLinter;
