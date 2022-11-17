@@ -37,7 +37,7 @@ const falcoLinterSource = (view) => {
     let errors = falcoResponse.errors;
     let warnings = falcoResponse.warnings;
 
-    if (errors.length == 0 && warnings.length == 0) {
+    if (errors.length === 0 && warnings.length === 0) {
         return diagnostics;
     }
 
@@ -90,7 +90,7 @@ const getNodeText = (view, node) => {
 const setEnd = (item, node) => {
     let locations = item.context.locations;
     let loc = locations[locations.length-1];
-    if (loc.position.offset == node.from) {
+    if (loc.position.offset === node.from) {
         loc.position.end = node.to;
     }
 }
