@@ -5,3 +5,207 @@
     border: 3px solid rgb(110, 188, 210);
     padding: 10px;
 }
+
+.header-mine {
+    background-color: #08b4cc;
+}
+  
+.logo {
+    margin-left: 15px;
+    height: 80px;
+    width: 80px;
+}
+  
+.footer-mine {
+    background-color: #253443;
+    padding: 1rem 3rem 1rem 3rem;
+    height: 100px;
+    display: flex;
+}
+  
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+  
+.first {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.second {
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.third {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.sysdig-logo {
+    padding: 1.5rem;
+}
+
+
+.footer-logo {
+    width: 50px;
+    height: 50px;
+}
+  
+.fa {
+    font-size: 25px
+}
+  
+.logo-size {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 1.9rem;
+}
+
+.text-white {
+    text-align: center;
+    color: #fff;
+    padding: 0.5rem;
+}
+
+.playground-editor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    padding: 0;
+}
+
+.playground-outputContainter {
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    border: 1px solid rgb(71, 69, 69);
+    border-top: none !important;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    background-color: #2b2d2f;
+}
+
+.whole-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-container {
+    background-color: #202224;
+    padding: 2rem 2rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+}
+
+.playground-controls {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.playground-title {
+  line-height: 1.75rem;
+  display: inline;
+  margin: 0;
+}
+
+.playground-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 0.5rem;
+  justify-content: flex-end;  
+  align-items: center;
+}
+
+.playground-selectExample, .playground-selectGoVersion, .playground-shareURL {
+  width: 150px;
+  background-color: var(--color-background);
+  border-radius: 3px;
+  border: 0.0625rem solid #6e7072;  
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  height: 1.75rem;
+}
+
+.Button {
+  align-items: center;
+  background-color: var(--color-background-accented);
+  border: 0.0625rem solid #6e7072;
+  border-radius: 0.1875rem;
+  box-shadow: 0 0.125rem 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font: bold 0.875rem Roboto, sans-serif;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  justify-content: center;
+  min-width: 4.063rem;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+option {
+  color: black;
+}
+
+.Button--primary {
+    width: 100px;
+    border: 0.0625rem solid #00add8;
+}
+
+.text {
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.falchetti {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    align-self: flex-end;
+    color: white;
+}
+
+.flogos {
+    transform: translateY(3px);
+}
+
+.f-logo {
+  width: 30px;
+  height: 30px;
+}
+
+small {
+    font-size: 80%;
+    font-weight: 400;
+}

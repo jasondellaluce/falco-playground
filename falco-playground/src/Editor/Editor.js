@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import { tags, styleTags } from '@lezer/highlight';
+import { tags } from '@lezer/highlight';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 import { Mixed } from "./MixedLanguage"
 import { falcoLinter, falcoLintGutter, setFalco } from './Linter';
@@ -26,7 +26,6 @@ const FalcoLanguageHighlight = HighlightStyle.define([
 ]);
 
 function Editor({ falco }) {
-
   useEffect(()=>{
     setFalco(falco)
   }, [falco]);
@@ -40,7 +39,9 @@ function Editor({ falco }) {
       value={initialContent}
       extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight), falcoLinter, falcoLintGutter, oneDark]}
       onChange={onChange}
-      minHeight={"600px"}
+      height={"45vh"}
+      width={"100%"}
+      className="editor"
     />
   );
 }
