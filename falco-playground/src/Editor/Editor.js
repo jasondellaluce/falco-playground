@@ -25,20 +25,16 @@ const FalcoLanguageHighlight = HighlightStyle.define([
   { tag: tags.operator, color: "#f5d" }
 ]);
 
-function Editor({ falco }) {
+function Editor({ falco, content, onContentChange }) {
   useEffect(()=>{
     setFalco(falco)
   }, [falco]);
 
-  const onChange = React.useCallback((value, viewUpdate) => {
-    let res = falco.validateRules("file1", value);
-    console.log(res);
-  }, []);
   return (
     <CodeMirror
-      value={initialContent}
+      value={content}
       extensions={[Mixed(), syntaxHighlighting(FalcoLanguageHighlight), falcoLinter, falcoLintGutter, oneDark]}
-      onChange={onChange}
+      onChange={onContentChange}
       height={"45vh"}
       width={"100%"}
       className="editor"

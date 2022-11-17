@@ -7,18 +7,18 @@ import { linter, lintGutter } from "@codemirror/lint"
 let falco = null;
 
 const setFalco = (falcoParam) => {
-    console.log('setFalco', falco);
+    // console.log('setFalco', falco);
     falco = falcoParam;
 }
 
 const runFalcoEngineValidation = (text) => {
     try {
         let jsonStr = falco.validateRules("file1", text);
-        console.log('falco response', jsonStr);
+        // console.log('falco response', jsonStr);
 
         return JSON.parse(jsonStr);
     } catch (err) {
-        console.log('falco engine error: ', err);
+        // console.log('falco engine error: ', err);
 
         // exit before in case of errors
         return null;
@@ -55,7 +55,7 @@ const falcoLinterSource = (view) => {
             // console.log("falco linter: ", node.index, node.from, node.to, '|', node.name, '|', text);
 
         } catch (e) {
-            console.log('trust me: ignore this', e);
+            // console.log('trust me: ignore this', e);
         }
     });
 

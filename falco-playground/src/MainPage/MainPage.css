@@ -90,12 +90,21 @@
 .playground-outputContainter {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: top;
     flex-grow: 1;
     border: 1px solid rgb(71, 69, 69);
     border-top: none !important;
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     background-color: #2b2d2f;
+}
+
+.playground-outputContainter-text {
+    text-align: top left;
+    padding: 2em;
+    color: white;
+    font-size: "80%";
 }
 
 .whole-page {
@@ -111,6 +120,7 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: center;
+
 }
 
 .main-column {

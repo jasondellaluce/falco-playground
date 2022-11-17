@@ -1,23 +1,49 @@
 import './MainPage.css';
+import React from 'react';
 import falco25 from './Falco-opacity-25.png';
 import falcoWhite from './FalcoWhite.png'
 import sysdigLogo from './sysdiglogowhite.svg'
 import { Examples } from './Examples'
 import Editor from '../Editor/Editor';
+import { useState } from 'react';
 
 function MainPage( { falco }) {
+  const [content, setContent] = useState(Examples[0].content);
+  const [validationOutput, setValidationOutput] = useState(null);
 
-  const onValidate = () => {
-
-  }
+  const onValidate = React.useCallback(() => {
+    let res = falco.validateRules("testfile", content);
+    try 
+    {
+      let out = JSON.parse(res);
+      setValidationOutput(out);
+      console.log(out);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [content])
 
   const onRun = () => {
-
+    // for the future I guess
   }
 
-  const onExampleChange = () => {
-
+  const onExampleChange = (evt) => {
+    console.log(evt.target.value);
+    setContent(Examples[evt.target.value].content);
   }
+
+  const onChange = React.useCallback((value) => {
+    setContent(value);
+    let res = falco.validateRules("testfile", value);
+    try 
+    {
+      let out = JSON.parse(res);
+      setValidationOutput(out);
+      console.log(out);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   return (
     <div className="whole-page">
@@ -25,8 +51,8 @@ function MainPage( { falco }) {
         <img className="logo" src={falcoWhite} alt="falco logo in header"></img>
       </div>
       
-      <div class="main-container">
-        <div class="main-column">
+      <div className="main-container">
+        <div className="main-column">
           <div className="playground-controls">
             <h1 className="playground-title">
               The Falco Playground
@@ -48,16 +74,36 @@ function MainPage( { falco }) {
               Run
               </button>
               <select className="playground-selectExample" aria-label="Code examples" onChange={onExampleChange}>
-                {Examples.map((e, i) => <option value={i}>{e.name}</option>)}
+                {Examples.map((e, i) => <option value={i} key={i}>{e.name}</option>)}
               </select>
             </div>
           </div>  
           <div className="playground-editor">
-            <Editor falco={falco} />
+            <Editor falco={falco} onContentChange={onChange} content={content}/>
           </div>
-          <div className="playground-outputContainter" id="outputContainter"></div>
+          <div className="playground-outputContainter" id="outputContainter">
+            <p className="playground-outputContainter-text">
+              {!validationOutput && <>All good, great job!</>}
+              {validationOutput
+                && validationOutput.errors.length == 0
+                && validationOutput.warnings.length == 0
+                && <>All good, great job!</>
+              }
+              {validationOutput
+                && validationOutput.errors.length == 0
+                && validationOutput.warnings.length > 0
+                && <>There are some warnings, just check the editor</>
+              }
+              <>
+              {validationOutput
+                && validationOutput.errors.length > 0
+                && validationOutput.errors.map((err) => <span>{err.message}<br/></span>)
+              }
+              </>
+            </p>
+          </div>
 
-          <div class="text">
+          <div className="text">
             <p><b>About the Playground </b></p>
             <p> Idea behind the Falco Playground was to leverage the new Falco rule validation features to provide things such as syntax highlighting and autocompletion. </p>
             <p>Falco is compiled for WebAssembly and provides a client-only solution with no backend by running it for rule validation directly in the browser. </p>
@@ -65,7 +111,7 @@ function MainPage( { falco }) {
         </div>
       </div>
     
-      <div class="footer-mine">
+      <div className="footer-mine">
         <div className="row">
           <div className="first">
             <div className="logo-size">
