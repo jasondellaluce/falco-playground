@@ -1,9 +1,39 @@
 import { syntaxTree } from "@codemirror/language"
-import { linter } from "@codemirror/lint"
-import falcoResponse from "./falcoResponse";
+import { linter, lintGutter } from "@codemirror/lint"
 
-const falcoLinter = linter(view => {
+// a static falco errors and warnings, uncomment for testing purpose
+// import falcoResponse from "./falcoResponse";
+
+let falco = null;
+
+const setFalco = (falcoParam) => {
+    console.log('setFalco', falco);
+    falco = falcoParam;
+}
+
+const runFalcoEngineValidation = (text) => {
+    try {
+        let jsonStr = falco.validateRules("file1", text);
+        console.log('falco response', jsonStr);
+
+        return JSON.parse(jsonStr);
+    } catch (err) {
+        // console.log(falco.module.UTF8ToString(err));
+
+        // exit before in case of errors
+        return null;
+    }
+}
+
+const falcoLinterSource = (view) => {
     let diagnostics = [];
+    
+    let text = getText(view);
+    let falcoResponse = runFalcoEngineValidation(text);
+    if (falcoResponse == null) {
+        return diagnostics;
+    }
+
     let errors = falcoResponse.errors;
     let warnings = falcoResponse.warnings;
 
@@ -17,7 +47,7 @@ const falcoLinter = linter(view => {
                 setEnd(item, node);
             });
 
-            const text = getText(view, node);
+            const text = getNodeText(view, node);
             console.log("falco linter: ", node.index, node.from, node.to, '|', node.name, '|', text);
 
         } catch (e) {
@@ -40,9 +70,14 @@ const falcoLinter = linter(view => {
     });
 
     return diagnostics;
-})
+}
 
-const getText = (view, node) => {
+const getText = (view) => {
+    let text = view.viewState.state.doc.text.join(' ');
+    return text;
+}
+
+const getNodeText = (view, node) => {
     let text = view.viewState.state.doc.text.join(' ');
     text = text.substring(node.from, node.to);
     return text;
@@ -79,4 +114,12 @@ const buildDiagnostic = (item, severity) => {
     };
 }
 
-export default falcoLinter;
+const falcoLinter = linter(falcoLinterSource, {
+    delay: 750,
+});
+
+const falcoLintGutter = lintGutter({
+    hoverTime: 800,
+})
+
+export {falcoLinter, falcoLintGutter, setFalco};
