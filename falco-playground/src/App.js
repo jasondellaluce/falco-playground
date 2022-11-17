@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor from './Editor/Editor';
+import MainPage from './MainPage/MainPage';
 import Loading from './Loading/Loading';
 import useFalco from './useFalco/useFalco';
 
@@ -10,7 +10,7 @@ function App () {
     <>
       {loading && <Loading />}
       {!loading && error && <p>ERROR: {error.toString()}</p>}
-      {!loading && !error && falco && <Editor falco={falco}/>}
+      {!loading && !error && falco && <MainPage falco={falco}/>}
     </>
   );
 }
