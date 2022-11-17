@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/falco-playground/static/css/main.704a5d87.css",
+    "main.js": "/falco-playground/static/js/main.fec249f1.js",
+    "static/js/787.ba40595e.chunk.js": "/falco-playground/static/js/787.ba40595e.chunk.js",
+    "static/media/Falco.png": "/falco-playground/static/media/Falco.a79f3eefe8ee9f072b44.png",
+    "index.html": "/falco-playground/index.html",
+    "main.704a5d87.css.map": "/falco-playground/static/css/main.704a5d87.css.map",
+    "main.fec249f1.js.map": "/falco-playground/static/js/main.fec249f1.js.map",
+    "787.ba40595e.chunk.js.map": "/falco-playground/static/js/787.ba40595e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.704a5d87.css",
+    "static/js/main.fec249f1.js"
+  ]
+}
