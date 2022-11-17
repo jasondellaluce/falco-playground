@@ -73,7 +73,7 @@ const falcoLinterSource = (view) => {
 }
 
 const getText = (view) => {
-    let text = view.viewState.state.doc.text.join(' ');
+    let text = view.viewState.state.doc.text.join('\n');
     return text;
 }
 
