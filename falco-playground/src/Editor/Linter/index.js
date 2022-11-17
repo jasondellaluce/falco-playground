@@ -52,7 +52,7 @@ const falcoLinterSource = (view) => {
             });
 
             const text = getNodeText(view, node);
-            console.log("falco linter: ", node.index, node.from, node.to, '|', node.name, '|', text);
+            // console.log("falco linter: ", node.index, node.from, node.to, '|', node.name, '|', text);
 
         } catch (e) {
             console.log('trust me: ignore this', e);
@@ -110,7 +110,7 @@ const buildDiagnostic = (item, severity) => {
         to: to,
         severity: severity,
         source: "Falco® Engine (WASM)",
-        message: item.codedesc,
+        message: item.message,
         // actions: [{
         //     name: "Remove",
         //     apply(view, from, to) { view.dispatch({changes: {from, to}}) }
