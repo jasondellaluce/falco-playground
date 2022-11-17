@@ -26,13 +26,8 @@ const FalcoLanguageHighlight = HighlightStyle.define([
 
 function Editor({ falco }) {
   const onChange = React.useCallback((value, viewUpdate) => {
-    // console.log("FALCO", falco, "VALUE", value);
-    try {
-      let res = falco.validateRules("file1", value);
-      console.log(res);
-    } catch (err) {
-      // console.log(falco.module.UTF8ToString(err));
-    }
+    let res = falco.validateRules("file1", value);
+    console.log(res);
   }, []);
   return (
     <CodeMirror
