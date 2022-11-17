@@ -26,11 +26,16 @@ const FalcoLanguage = LRLanguage.define({
     parser: parser.configure({
         props: [
             styleTags({
+                FieldName: tags.bool,
                 Identifier: tags.variableName,
                 UnaryOperator: tags.operator,
                 NumOperator: tags.operator,
                 StrOperator: tags.operator,
-                ListOperator: tags.operator
+                ListOperator: tags.operator,
+                Number: tags.number,
+                HexNumber: tags.number,
+                QuotedStr: tags.string,
+                BareStr: tags.string,
             })
         ]
     })

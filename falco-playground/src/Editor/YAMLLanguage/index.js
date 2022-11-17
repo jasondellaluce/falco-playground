@@ -147,15 +147,14 @@ const parser = LRParser.deserialize({
 });
 
 const YAMLLanguageHighlight = HighlightStyle.define([
-    { tag: tags.variableName, color: "#fc6" },
-    { tag: tags.operator, color: "#f5d", fontStyle: "italic" }
+
 ]);
 const YAMLLanguage = LRLanguage.define({
     parser: parser.configure({
         props: [
             styleTags({
-                Key: tags.operator,
-                ConditionKey: tags.operator,
+                Key: tags.attributeName,
+                ConditionKey: tags.attributeName,
             })
         ]
     })

@@ -13,10 +13,10 @@ export const Examples = [
 - rule: Launch Privileged Container
   desc: Detect the initial process started in a privileged container. Exceptions are made for known trusted images.
   condition: container_started and container and container.privileged=true
-  output: Privileged container started (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline pid=%proc.pid %container.info image=%container.image.repository:%container.image.tag)
-  priority: INFO
-  tags: [container, cis, mitre_privilege_escalation, mitre_lateral_movement]
-`,
+  output: >
+    Privileged container started (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline
+    pid=%proc.pid %container.info image=%container.image.repository:%container.image.tag)
+  priority: INFO`,
     },
     {
         name: "Unexpected Video Device Open",
@@ -37,15 +37,15 @@ export const Examples = [
 # Users should overwrite this macro to specify conditions under which a
 # Custom condition for use of remote file copy tool in container
 - macro: user_known_remote_file_copy_activities
-  condition: (never_true)
+  condition: evt.num=0
 
 - rule: Launch Remote File Copy Tools in Container
   desc: Detect remote file copy tools launched in container
   condition: spawned_process and container and remote_file_copy_procs and not user_known_remote_file_copy_activities
   output: >
-    Remote file copy tool launched in container (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline pid=%proc.pid parent_process=%proc.pname
-    container_id=%container.id container_name=%container.name image=%container.image.repository:%container.image.tag)
-  priority: NOTICE
-  tags: [network, process, mitre_lateral_movement, mitre_exfiltration]`,
+    Remote file copy tool launched in container (user=%user.name user_loginuid=%user.loginuid
+    command=%proc.cmdline pid=%proc.pid parent_process=%proc.pname container_id=%container.id
+    container_name=%container.name image=%container.image.repository:%container.image.tag)
+  priority: NOTICE`,
     }
 ];

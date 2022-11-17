@@ -29,6 +29,7 @@ function MainPage( { falco }) {
 
   const onExampleChange = (evt) => {
     console.log(evt.target.value);
+    setValidationOutput(null);
     setContent(Examples[evt.target.value].content);
   }
 
