@@ -18,7 +18,7 @@ const runFalcoEngineValidation = (text) => {
 
         return JSON.parse(jsonStr);
     } catch (err) {
-        // console.log(falco.module.UTF8ToString(err));
+        console.log('falco engine error: ', err);
 
         // exit before in case of errors
         return null;
@@ -36,6 +36,10 @@ const falcoLinterSource = (view) => {
 
     let errors = falcoResponse.errors;
     let warnings = falcoResponse.warnings;
+
+    if (errors.length == 0 && warnings.length == 0) {
+        return diagnostics;
+    }
 
     syntaxTree(view.state).cursor().iterate(node => {
         try {
